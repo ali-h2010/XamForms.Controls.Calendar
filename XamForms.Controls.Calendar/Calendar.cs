@@ -13,7 +13,7 @@ namespace XamForms.Controls
 		List<Grid> MainCalendars;
 		List<Label> TitleLabels;
 		StackLayout MainView, ContentView;
-        public static double GridSpace = 0;
+        public static double GridSpace = 5;
 		public event EventHandler<EventArgs> OnStartRenderCalendar, OnEndRenderCalendar;
 
         public Calendar()
@@ -23,7 +23,7 @@ namespace XamForms.Controls
 				FontAttributes = FontAttributes.Bold,
 				BackgroundColor = Color.Transparent,
 				FontSize = 24,
-				Text = "❰",
+				Text = "< Prev",
 				TextColor = Color.FromHex("#c82727")
 			};
 			TitleLabel = new Label { 
@@ -40,11 +40,12 @@ namespace XamForms.Controls
 				FontAttributes = FontAttributes.Bold,
 				BackgroundColor = Color.Transparent,
 				FontSize = 24,
-				Text = "❱",
+				Text = "Next >",
 				TextColor = Color.FromHex("#c82727")
 			};
 			MonthNavigationLayout = new StackLayout
 			{
+                BackgroundColor = Color.Transparent,
 				Padding = 0,
 				VerticalOptions = LayoutOptions.Start,
 				Orientation = StackOrientation.Horizontal,
@@ -53,11 +54,15 @@ namespace XamForms.Controls
 			};
 			ContentView = new StackLayout
 			{
-				Padding = 0,
-				Orientation = StackOrientation.Vertical
+                BackgroundColor = Color.Transparent,
+                Padding = 0,
+                Orientation = StackOrientation.Vertical,               
 			};
+            var SwipeGesture = new PanGestureRecognizer();
+
 			MainView = new StackLayout {
-				Padding = 0,
+                BackgroundColor = Color.Transparent,
+                Padding = 0,
 				Orientation = StackOrientation.Vertical,
 				Children = { MonthNavigationLayout, ContentView }
 			};
@@ -480,10 +485,10 @@ namespace XamForms.Controls
 					{
 						buttons.Add(new CalendarButton
 						{
-							BorderRadius = 0,
-							BorderWidth = BorderWidth,
-							BorderColor = BorderColor,
-							FontSize = DatesFontSize,
+							//BorderRadius = 0,
+							//BorderWidth = BorderWidth,
+							//BorderColor = BorderColor,
+							//FontSize = DatesFontSize,
 							BackgroundColor = DatesBackgroundColor,
 							TextColor = DatesTextColor,
 							FontAttributes = DatesFontAttributes,
@@ -492,10 +497,40 @@ namespace XamForms.Controls
 							VerticalOptions = LayoutOptions.FillAndExpand
 						});
 						var b = buttons.Last();
-						b.Clicked += DateClickedEvent;
-						mainCalendar.Children.Add(b, c, r);
+
+                        //var start = CalendarStartDate(StartDate).Date;
+                        //var beginOfMonth = false;
+                        //var endOfMonth = false;
+                        //endOfMonth |= beginOfMonth && start.Day == 1;
+                        //beginOfMonth |= start.Day == 1;
+                        //var IsDateOutOfMonth = !(beginOfMonth && !endOfMonth);
+
+                        //if(IsDateOutOfMonth)
+                        //{
+                        //    //do nothing
+                        //}
+                        //else
+                        //{
+                        //    //Add the date
+
+                        //    b.Clicked += DateClickedEvent;
+                        //    mainCalendar.Children.Add(b, c, r);
+                        //}
+                        ////update start date
+                        //start = start.AddDays(1);
+                        //if (i != 0 && (i + 1) % 42 == 0)
+                        //{
+                        //    beginOfMonth = false;
+                        //    endOfMonth = false;
+                        //    start = CalendarStartDate(start);
+                        //}
+
+                        b.Clicked += DateClickedEvent;
+                        mainCalendar.Children.Add(b, c, r);
+
 					}
 				}
+                mainCalendar.BackgroundColor = Color.White;
 				MainCalendars.Add(mainCalendar);
 			}
 		}
@@ -591,13 +626,18 @@ namespace XamForms.Controls
 				Content = MainView;
 				OnEndRenderCalendar?.Invoke(this, EventArgs.Empty);
 			});
+
+
         }
 
         protected void SetButtonNormal(CalendarButton button)
         {
 			button.BackgroundPattern = null;
 			button.BackgroundImage = null;
+                if(!button.IsOutOfMonth)
+            {
                 
+            }
             Device.BeginInvokeOnMainThread(() =>
             {
                 button.IsEnabled = true;
@@ -611,6 +651,7 @@ namespace XamForms.Controls
 				button.FontAttributes = button.IsOutOfMonth ? DatesFontAttributesOutsideMonth : DatesFontAttributes;
 				button.IsEnabled = ShowNumOfMonths == 1 || !button.IsOutOfMonth;
             });
+
         }
 
 		protected void DateClickedEvent(object s, EventArgs a)

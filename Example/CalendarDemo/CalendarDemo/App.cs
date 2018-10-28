@@ -21,7 +21,8 @@ namespace CalendarDemo
 				MultiSelectDates = false,
 				DisableAllDates = false,
 				WeekdaysShow = true,
-				ShowNumberOfWeek = true,
+				ShowNumberOfWeek = false,
+                DisableDatesLimitToMaxMinRange = true,
                 //BorderWidth = 1,
                 //BorderColor = Color.Transparent,
                 //OuterBorderWidth = 0,
@@ -32,30 +33,32 @@ namespace CalendarDemo
 				StartDay = DayOfWeek.Monday,
 				SelectedTextColor = Color.Fuchsia,
 				SpecialDates = new List<SpecialDate>{
-					new SpecialDate(DateTime.Now.AddDays(2)) { BackgroundColor = Color.Green, TextColor = Color.Accent, BorderColor = Color.Lime, BorderWidth=8, Selectable = true },
-					new SpecialDate(DateTime.Now.AddDays(3))
-					{
-						BackgroundColor = Color.Green,
-						TextColor = Color.Blue,
-						Selectable = true,
-						BackgroundPattern = new BackgroundPattern(1)
-						{
-							Pattern = new List<Pattern>
-							{
-								new Pattern{ WidthPercent = 1f, HightPercent = 0.25f, Color = Color.Red},
-								new Pattern{ WidthPercent = 1f, HightPercent = 0.25f, Color = Color.Purple},
-								new Pattern{ WidthPercent = 1f, HightPercent = 0.25f, Color = Color.Green},
-								new Pattern{ WidthPercent = 1f, HightPercent = 0.25f, Color = Color.Yellow,Text = "Test", TextColor=Color.DarkBlue, TextSize=11, TextAlign=TextAlign.Middle}
-							}
-						}
-					},
-					new SpecialDate(DateTime.Now.AddDays(4))
-					{
-						Selectable = true,
-						BackgroundImage = FileImageSource.FromFile("icon.png") as FileImageSource
-					}
+                    new SpecialDate(DateTime.Now.AddDays(2))  { BackgroundColor = Color.Green, TextColor = Color.White, Selectable = true },//{ BackgroundColor = Color.Green, TextColor = Color.Accent, BorderColor = Color.Lime, BorderWidth=8, Selectable = true },
+                    new SpecialDate(DateTime.Now.AddDays(3))  { BackgroundColor = Color.Red, TextColor = Color.White, Selectable = false },//{ BackgroundColor = Color.Green, TextColor = Color.Accent, BorderColor = Color.Lime, BorderWidth=8, Selectable = true }
+					//new SpecialDate(DateTime.Now.AddDays(3))
+					//{
+					//	BackgroundColor = Color.Green,
+					//	TextColor = Color.Blue,
+					//	Selectable = true,
+					//	BackgroundPattern = new BackgroundPattern(1)
+					//	{
+					//		Pattern = new List<Pattern>
+					//		{
+					//			new Pattern{ WidthPercent = 1f, HightPercent = 0.25f, Color = Color.Red},
+					//			new Pattern{ WidthPercent = 1f, HightPercent = 0.25f, Color = Color.Purple},
+					//			new Pattern{ WidthPercent = 1f, HightPercent = 0.25f, Color = Color.Green},
+					//			new Pattern{ WidthPercent = 1f, HightPercent = 0.25f, Color = Color.Yellow,Text = "Test", TextColor=Color.DarkBlue, TextSize=11, TextAlign=TextAlign.Middle}
+					//		}
+					//	}
+					//},
+					//new SpecialDate(DateTime.Now.AddDays(4))
+					//{
+					//	Selectable = true,
+					//	BackgroundImage = FileImageSource.FromFile("icon.png") as FileImageSource
+					//}
 				}
 			};
+
 			/*
 			var white_row = new Pattern { WidthPercent = 1f, HightPercent = 0.04f, Color = Color.Transparent };
 			var white_col = new Pattern { WidthPercent = 0.04f, HightPercent = 1f, Color = Color.Transparent };
@@ -123,14 +126,17 @@ namespace CalendarDemo
 			c2.BindingContext = _vm;
 
             // The root page of your application
+            Label label = new Label();
+            label.Text = "Hello World";
             MainPage = new ContentPage
             {
 				BackgroundColor= Color.White,
 				Content = new ScrollView {
 					Content = new StackLayout {
-						Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 25 : 5, 5, 5),
+						Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 25 : 5, 5, 50),
 							Children = {
 							calendar//,c2
+                            ,label
 						}
 					}
                 }
@@ -146,7 +152,7 @@ namespace CalendarDemo
 
 			var dates = new List<SpecialDate>();
 
-			var specialDate = new SpecialDate(new DateTime(2017, 04, 26));
+			var specialDate = new SpecialDate(new DateTime(2018, 10, 25));
 			specialDate.BackgroundColor = Color.Green;
 			specialDate.TextColor = Color.White;
 

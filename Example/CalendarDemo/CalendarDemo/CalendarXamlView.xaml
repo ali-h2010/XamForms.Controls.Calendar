@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"         
 		xmlns:controls="clr-namespace:XamForms.Controls;assembly=XamForms.Controls.Calendar"
 		x:Class="CalendarDemo.CalendarXamlView">
 	<ContentView.Content>
@@ -14,7 +14,14 @@
 			TitleLeftArrowTextColor="Blue"
 			SelectedDate="{Binding Date}"
 			SpecialDates="{Binding Attendances}"
-			DateCommand="{Binding DateChosen}" >
+			DateCommand="{Binding DateChosen}" 
+            BorderColor="Blue"
+            BorderWidth="0"
+            OuterBorderWidth="0"
+            BackgroundColor="White"
+            DatesBackgroundColor="Blue"
+            
+            >
 		</controls:Calendar>
 	</ContentView.Content>
 </ContentView>
