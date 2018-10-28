@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(NuGetAuthoringPath)\NuGet.Packaging.Authoring.props" Condition="Exists('$(NuGetAuthoringPath)\NuGet.Packaging.Authoring.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7F72B7ED-CFCB-4EBB-BE6A-1B0C49D2B308}</ProjectGuid>
+    <Description>CustomXamCalendar</Description>
+    <PackageId>CustomXamCalendar</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>sabicmobility</Authors>
+    <DevelopmentDependency>false</DevelopmentDependency>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CustomXamCalendar</RootNamespace>
+    <UsePartialTypes>false</UsePartialTypes>
+    <AssemblyName>CustomXamCalendar</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>bin\Debug</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="readme.txt">
+      <IncludeInPackage>true</IncludeInPackage>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Packaging">
+      <Version>0.2.0</Version>
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamForms.Controls.Calendar\XamForms.Controls.Calendar.csproj">
+      <Project>{DA721ED1-72ED-43EF-B909-FF4F037D6549}</Project>
+      <Name>XamForms.Controls.Calendar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamForms.Controls.Calendar.Droid\XamForms.Controls.Calendar.Droid.csproj">
+      <Project>{4F9925E4-91B2-4017-A750-38726100BD44}</Project>
+      <Name>XamForms.Controls.Calendar.Droid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamForms.Controls.Calendar.iOS\XamForms.Controls.Calendar.iOS.csproj">
+      <Project>{3AFDA59E-C3AF-4848-8C1F-674932E118FF}</Project>
+      <Name>XamForms.Controls.Calendar.iOS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(NuGetAuthoringPath)\NuGet.Packaging.Authoring.targets" Condition="Exists('$(NuGetAuthoringPath)\NuGet.Packaging.Authoring.targets')" />
+</Project>

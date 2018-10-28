@@ -248,9 +248,19 @@ namespace XamForms.Controls
 
 		protected bool ChangeSelectedDate(DateTime? date, bool clicked = true)
 		{
-			if (!date.HasValue) return false;
+            if (!date.HasValue) return false;
 
-			if (!MultiSelectDates)
+            if (SelectedDates.Count() > 0)//check if there is a selected date
+            {
+                int result = DateTime.Compare((System.DateTime)date, SelectedDates[0]);
+                if (result == 0)//Equal Dates
+                {
+                    return false;
+                }
+            }
+
+
+            if (!MultiSelectDates)
 			{
 				buttons.FindAll(b => b.IsSelected).ForEach(b => ResetButton(b));
 				SelectedDates.Clear();

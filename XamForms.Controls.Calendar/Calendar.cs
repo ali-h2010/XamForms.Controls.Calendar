@@ -660,9 +660,10 @@ namespace XamForms.Controls
 			if (SelectedDate.HasValue && selectedDate.HasValue && SelectedDate.Value == selectedDate.Value)
 			{
 				ChangeSelectedDate(selectedDate);
-				SelectedDate = null;
-			}
-			else
+                //removed to avoid deselection
+                //SelectedDate = null;
+            }
+            else
 			{
 				SelectedDate = selectedDate;
 			}
